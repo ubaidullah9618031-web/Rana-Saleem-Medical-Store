@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sunny Medical Store</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        body {
+            background-color: #f4f7f6;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Navbar Custom Design */
+        .medical-nav {
+            background-color: #008080 !important; /* Teal Green */
+            border-bottom: 4px solid #004d4d;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            color: white !important;
+            font-size: 24px;
+        }
+
+        .nav-link {
+            color: white !important;
+            margin: 0 10px;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            color: #ffcc00 !important;
+        }
+
+        /* Search Section */
+        .hero-section {
+            background: linear-gradient(rgba(0,128,128,0.8), rgba(0,128,128,0.8)), url('medical-bg.jpg');
+            background-size: cover;
+            padding: 60px 0;
+            color: white;
+            text-align: center;
+        }
+
+        .search-box {
+            border-radius: 50px;
+            padding: 25px;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        /* Medicine Cards */
+        .med-card {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: 0.3s;
+            border-top: 5px solid #008080;
+        }
+
+        .med-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .price-tag {
+            color: #008080;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .btn-buy {
+            background-color: #008080;
+            color: white;
+            border-radius: 20px;
+            width: 100%;
+        }
+
+        .btn-buy:hover {
+            background-color: #004d4d;
+            color: white;
+        }
+
+        .cart-badge {
+            background-color: red;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 7px;
+            font-size: 12px;
+            position: relative;
+            top: -10px;
+            left: -5px;
+        }
+        .text-teal { color: #008080; }
+
+        @keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0.3; }
+    100% { opacity: 1; }
+}
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg medical-nav sticky-top">
+    <div class="container">
+        <a class="navbar-brand" href="#"><i class="fas fa-plus-square text-warning"></i> RANA SALEEM MEDICAL</a>
+
+        <span class="badge rounded-pill bg-light text-dark ms-2 d-none d-md-inline-block" style="font-size: 10px; border: 1px solid #28a745;">
+    <span style="height: 8px; width: 8px; background-color: #28a745; border-radius: 50%; display: inline-block; margin-right: 5px; animation: blink 1s infinite;"></span>
+    ONLINE NOW
+</span>
+
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="#home">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="#medicines">Medicines</a></li>
+                <li class="nav-item"><a class="nav-link" href="#prescription">Prescription</a></li>
+
+                <li class="nav-item">
+    <a class="nav-link btn btn-outline-warning ms-lg-3 px-4 text-white fw-bold" href="signin.html" style="border-radius: 20px;">
+        <i class="fas fa-user-circle"></i> Sign In
+    </a>
+</li>
+
+             <li class="nav-item">
+    <a class="nav-link" href="javascript:void(0)" data-bs-toggle="offcanvas" data-bs-target="#cartDrawer">
+        <i class="fas fa-shopping-cart"></i> Cart
+        <span class="cart-badge" id="cartCount">0</span>
+    </a>
+</li>
+
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
+<!-- <div class="offcanvas offcanvas-end bg-light" tabindex="-1" id="cartDrawer">
+    <div class="offcanvas-header" style="background: #008080; color: white;">
+        <h5 class="offcanvas-title"><i class="fas fa-shopping-cart"></i> Your Medical Cart</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body d-flex flex-column">
+        <div id="cartItemsList" class="flex-grow-1">
+            <p class="text-center text-muted">Aapka cart khali hai.</p>
+        </div>
+        
+        <hr>
+
+
+
+        <div id="cartFooter" style="display: none;">
+            <div class="d-flex justify-content-between fw-bold fs-5 mb-3" style="color: #008080;">
+                <span>Total Bill:</span>
+                <span id="totalAmount">Rs. 0</span>
+            </div>
+
+        <div class="alert alert-success py-1 px-2 mt-2 border-0" style="font-size: 12px; border-radius: 8px;">
+    <i class="fas fa-truck-fast me-1"></i> Delivery in: <b>25-30 Minutes</b>
+</div> -->
+
+           
+   
+     <!-- <div class="p-3 border-top bg-light"></div>
+
+     <div class="mb-3 p-2 rounded" style="background: #f0fdfa; border: 1px dashed #008080;">
+    <label class="form-label small fw-bold text-teal"><i class="fas fa-shipping-fast"></i> Select Delivery Speed:</label>
+    <div class="d-flex gap-3">
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="deliverySpeed" id="standard" value="100" checked onchange="updateCartUI()">
+            <label class="form-check-label small" for="standard">
+                Standard (Rs. 100) <br><span class="text-muted" style="font-size: 10px;">30-40 min</span>
+            </label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" name="deliverySpeed" id="express" value="250" onchange="updateCartUI()">
+            <label class="form-check-label small" for="express">
+                Express (Rs. 250) <br><span class="text-danger" style="font-size: 10px;">10-15 min</span>
+            </label>
+        </div>
+    </div>
+</div>
+
+    <div class="mb-3">
+        <label class="form-label small fw-bold text-muted">Payment Method:</label>
+        <select class="form-select form-select-sm border-teal" id="paymentMethod" style="border-radius: 8px;">
+            <option value="Cash on Delivery">Cash on Delivery (COD)</option>
+            <option value="EasyPaisa">EasyPaisa (0319-9618031)</option>
+            <option value="JazzCash">JazzCash (0319-9618031)</option>
+        </select>
+    </div>
+
+    <button onclick="sendOrderWhatsApp()" class="btn btn-teal w-100 fw-bold py-2 shadow-sm" style="background-color: #008080; color: white; border-radius: 10px;">
+        <i class="fab fa-whatsapp me-2"></i> WhatsApp Par Order Karein
+    </button>
+</div> 
+        </div>
+    </div>
+</div> -->
+
+
+<div class="offcanvas offcanvas-end" tabindex="-1" id="cartDrawer" style="width: 400px;">
+    <div class="offcanvas-header" style="background: #008080; color: white;">
+        <h5 class="offcanvas-title"><i class="fas fa-shopping-cart me-2"></i> Aapka Cart</h5>
+        <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+    </div>
+
+    <div class="offcanvas-body" style="background: #f8f9fa;">
+        
+        <div class="d-flex justify-content-between mb-4 mt-2 px-3">
+            <div class="text-center">
+                <div class="rounded-circle text-white d-inline-flex align-items-center justify-content-center" style="width: 25px; height: 25px; background: #008080; font-size: 12px;">1</div>
+                <div style="font-size: 10px; font-weight: bold;">Cart</div>
+            </div>
+            <div style="flex: 1; height: 2px; background: #008080; margin-top: 12px;"></div>
+            <div class="text-center">
+                <div class="rounded-circle bg-white text-muted d-inline-flex align-items-center justify-content-center border" style="width: 25px; height: 25px; font-size: 12px;">2</div>
+                <div style="font-size: 10px;">Details</div>
+            </div>
+            <div style="flex: 1; height: 2px; background: #ddd; margin-top: 12px;"></div>
+            <div class="text-center">
+                <div class="rounded-circle bg-white text-muted d-inline-flex align-items-center justify-content-center border" style="width: 25px; height: 25px; font-size: 12px;">3</div>
+                <div style="font-size: 10px;">Order</div>
+            </div>
+        </div>
+
+        <div id="cartItemsList">
+            </div>
+
+        <div id="cartFooter" style="display: none;">
+            
+            <div class="mb-3 p-3 rounded bg-white shadow-sm border">
+                <label class="form-label small fw-bold text-teal"><i class="fas fa-shipping-fast"></i> Delivery Speed Chunain:</label>
+                <div class="d-flex flex-column gap-2">
+                    <div class="form-check p-2 border rounded">
+                        <input class="form-check-input ms-0 me-2" type="radio" name="deliverySpeed" id="standard" value="100" checked onchange="updateCartUI()">
+                        <label class="form-check-label small" for="standard">
+                            <b>Standard: Rs. 100</b> (30-40 min)
+                        </label>
+                    </div>
+                    <div class="form-check p-2 border rounded">
+                        <input class="form-check-input ms-0 me-2" type="radio" name="deliverySpeed" id="express" value="250" onchange="updateCartUI()">
+                        <label class="form-check-label small" for="express">
+                            <b>Express: Rs. 250</b> (10-15 min) <i class="fas fa-bolt text-warning"></i>
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="totalAmount" class="p-3 bg-white rounded shadow-sm border mb-3">
+                </div>
+
+            <button onclick="sendOrderWhatsApp()" class="btn w-100 fw-bold py-2 shadow" style="background: #008080; color: white; border-radius: 10px;">
+                <i class="fab fa-whatsapp me-2"></i> Order On WhatsApp
+            </button> <br>
+          
+                <button onclick="clearFullCart()" class="btn btn-outline-danger w-100 mt-2 mb-3 py-2 fw-bold shadow-sm" style="border-radius: 10px; font-size: 14px;">
+    <i class="fas fa-trash-alt me-2"></i> Clear All Items
+</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<section class="hero-section">
+    <div class="container">
+        <h1 class="mb-4">Find Your Medicines & Health Needs</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-7">
+                <input type="text" id="medSearch" class="form-control search-box" placeholder="Search Panadol, Insulin, Vitamins..." onkeyup="filterMeds()">
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container my-5">
+    <h2 class="text-center mb-5" style="color: #008080;">Featured Products</h2>
+    
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="panadol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Panadol Extra</h5>
+                <p class="text-muted small">For Pain Relief & Fever</p>
+                <p class="price-tag">Rs. 150</p>
+               
+                <button class="btn btn-buy" onclick="addToCart('Panadol Extra', 150)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="BRUFEN.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Brufen </h5>
+                <p class="text-muted small">Immunity Booster</p>
+                <p class="price-tag">Rs. 60</p>
+                
+                <button class="btn btn-buy" onclick="addToCart('Brufen', 60)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="flajeel.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">flajeel</h5>
+                <p class="text-muted small">Cough Relief</p>
+                <p class="price-tag">Rs. 50</p>
+                <button class="btn btn-buy" onclick="addToCart('flajeel', 50)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="calpol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">calpol</h5>
+                <p class="text-muted small">Health Equipment</p>
+                <p class="price-tag">Rs. 55</p>
+               
+<button class="btn btn-buy" onclick="addToCart('calpol', 55)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container my-5">
+    <h2 class="text-center mb-5" style="color: #008080;">Featured Products</h2>
+    
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="panadol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Panadol Extra</h5>
+                <p class="text-muted small">For Pain Relief & Fever</p>
+                <p class="price-tag">Rs. 150</p>
+               
+                <button class="btn btn-buy" onclick="addToCart('Panadol Extra', 150)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="BRUFEN.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Brufen </h5>
+                <p class="text-muted small">Immunity Booster</p>
+                <p class="price-tag">Rs. 60</p>
+                
+                <button class="btn btn-buy" onclick="addToCart('Brufen', 60)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="flajeel.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">flajeel</h5>
+                <p class="text-muted small">Cough Relief</p>
+                <p class="price-tag">Rs. 50</p>
+                <button class="btn btn-buy" onclick="addToCart('flajeel', 50)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="calpol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">calpol</h5>
+                <p class="text-muted small">Health Equipment</p>
+                <p class="price-tag">Rs. 55</p>
+               
+<button class="btn btn-buy" onclick="addToCart('calpol', 55)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div class="container my-5">
+    <h2 class="text-center mb-5" style="color: #008080;">Featured Products</h2>
+    
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="panadol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Panadol Extra</h5>
+                <p class="text-muted small">For Pain Relief & Fever</p>
+                <p class="price-tag">Rs. 150</p>
+               
+                <button class="btn btn-buy" onclick="addToCart('Panadol Extra', 150)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="BRUFEN.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Brufen </h5>
+                <p class="text-muted small">Immunity Booster</p>
+                <p class="price-tag">Rs. 60</p>
+                
+                <button class="btn btn-buy" onclick="addToCart('Brufen', 60)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="flajeel.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">flajeel</h5>
+                <p class="text-muted small">Cough Relief</p>
+                <p class="price-tag">Rs. 50</p>
+                <button class="btn btn-buy" onclick="addToCart('flajeel', 50)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="calpol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">calpol</h5>
+                <p class="text-muted small">Health Equipment</p>
+                <p class="price-tag">Rs. 55</p>
+               
+<button class="btn btn-buy" onclick="addToCart('calpol', 55)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="container my-5">
+    <h2 class="text-center mb-5" style="color: #008080;">Featured Products</h2>
+    
+    <div class="row g-4">
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="panadol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Panadol Extra</h5>
+                <p class="text-muted small">For Pain Relief & Fever</p>
+                <p class="price-tag">Rs. 150</p>
+               
+                <button class="btn btn-buy" onclick="addToCart('Panadol Extra', 150)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="BRUFEN.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">Brufen </h5>
+                <p class="text-muted small">Immunity Booster</p>
+                <p class="price-tag">Rs. 60</p>
+                
+                <button class="btn btn-buy" onclick="addToCart('Brufen', 60)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="flajeel.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">flajeel</h5>
+                <p class="text-muted small">Cough Relief</p>
+                <p class="price-tag">Rs. 50</p>
+                <button class="btn btn-buy" onclick="addToCart('flajeel', 50)">Add to Cart</button>
+
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 med-item">
+            <div class="med-card text-center">
+                <img src="calpol.jpeg" class="img-fluid mb-3" alt="medicine">
+                <h5 class="fw-bold">calpol</h5>
+                <p class="text-muted small">Health Equipment</p>
+                <p class="price-tag">Rs. 55</p>
+               
+<button class="btn btn-buy" onclick="addToCart('calpol', 55)">Add to Cart</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<section class="py-5" style="background-color: #f1f8f8;">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-teal">Hamare Khush Grahak</h2>
+            <p class="text-muted">Log Rana Saleem Medical Store ke baare mein kya kehte hain</p>
+            <div style="height: 3px; width: 60px; background: #008080; margin: 0 auto;"></div>
+        </div>
+
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 15px;">
+                    <div class="text-warning mb-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="fst-italic text-muted">"Boht hi zabardast service hai! Maine raat 2 baje dawai order ki aur 20 minute mein Express delivery mil gayi. Highly recommended!"</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="bg-teal text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; background: #008080;">A</div>
+                        <div class="ms-3">
+                            <h6 class="mb-0 fw-bold">Ali Ahmed</h6>
+                            <small class="text-muted">Verified Customer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 15px;">
+                    <div class="text-warning mb-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <p class="fst-italic text-muted">"Dawayian bilkul original hain aur packing bhi boht achi thi. Delivery charges bhi baqi apps se kam hain."</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="bg-teal text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; background: #008080;">S</div>
+                        <div class="ms-3">
+                            <h6 class="mb-0 fw-bold">Sara Khan</h6>
+                            <small class="text-muted">Verified Customer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm p-4" style="border-radius: 15px;">
+                    <div class="text-warning mb-2">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                    <p class="fst-italic text-muted">"Parchi (Prescription) upload karne wala feature boht kaam ka hai. Mujhe dawai ka naam nahi aata tha, sirf photo bheji aur order mil gaya!"</p>
+                    <div class="d-flex align-items-center mt-3">
+                        <div class="bg-teal text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 40px; height: 40px; background: #008080;">U</div>
+                        <div class="ms-3">
+                            <h6 class="mb-0 fw-bold">Usman Sheikh</h6>
+                            <small class="text-muted">Verified Customer</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+                        
+
+
+
+<footer style="background-color: #004d4d; color: white; padding: 50px 0 20px 0; margin-top: 50px;">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h4 class="text-warning fw-bold mb-3"><i class="fas fa-plus-square"></i> RANA SALEEM MEDICAL</h4>
+                <p class="small" style="line-height: 1.8; opacity: 0.8;">
+                    Aapka apna bharosay mand medical store. Hum provide karte hain original dawaiyan aur behtareen health products directly aapke ghar tak.
+                </p>
+                <div class="mt-3">
+                    <a href="#" class="text-white me-3"><i class="fab fa-facebook fa-lg"></i></a>
+                    <a href="#" class="text-white me-3"><i class="fab fa-instagram fa-lg"></i></a>
+                    <a href="#" class="text-white"><i class="fab fa-whatsapp fa-lg"></i></a>
+                </div>
+            </div>
+
+            <div class="col-md-2">
+                <h5 class="text-warning mb-3">Quick Links</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Home</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">All Medicines</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Baby Care</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Surgical Items</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-2">
+                <h5 class="text-warning mb-3">Services</h5>
+                <ul class="list-unstyled small">
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Home Delivery</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Order via WhatsApp</a></li>
+                    <li class="mb-2"><a href="#" class="text-white text-decoration-none opacity-75">Health Advice</a></li>
+                </ul>
+            </div>
+
+            <div class="col-md-4">
+                <h5 class="text-warning mb-3">Contact Us</h5>
+                <p class="small mb-2"><i class="fas fa-map-marker-alt text-warning me-2"></i>Islamabad Tarlai sheer ali town house no 32</p>
+                <p class="small mb-2"><i class="fas fa-phone-alt text-warning me-2"></i> +92 333 5524787</p>
+                <p class="small mb-2"><i class="fas fa-envelope text-warning me-2"></i> ranaapp@gmail.com</p>
+                <div class="bg-dark p-3 rounded mt-3 border border-secondary">
+                    <p class="small mb-0 text-warning"><i class="fas fa-clock me-1"></i>Timing 24 hour service</p>
+                </div>
+            </div>
+        </div>
+
+        <hr class="my-4 border-secondary">
+
+        <div class="row align-items-center">
+            <div class="col-md-6 text-center text-md-start">
+                <p class="small mb-0 opacity-50">&copy; 2026 Rana Saleem Medical Store. All Rights Reserved.</p>
+            </div>
+            <div class="col-md-6 text-center text-md-end mt-2 mt-md-0">
+                <img src="https://i.imgur.com/7S87IeW.png" alt="Payment Methods" style="height: 30px; filter: grayscale(1) brightness(2);">
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    // Cart Counter Logic
+    let count = 0;
+    function addToCart() {
+        count++;
+        document.getElementById('cartCount').innerText = count;
+        alert("Medicine added to cart!");
+    }
+
+    // Search Logic
+ function filterMeds() {
+    let input = document.getElementById('medSearch').value.toLowerCase();
+    let items = document.getElementsByClassName('med-item');
+    let found = false;
+
+    for (let i = 0; i < items.length; i++) {
+        let name = items[i].getElementsByTagName('h5')[0].innerText.toLowerCase();
+        if (name.includes(input)) {
+            items[i].style.display = "";
+            found = true;
+        } else {
+            items[i].style.display = "none";
+        }
+    }
+    
+    // Agar kuch na mile toh message dikhao
+    let noResults = document.getElementById('noResultsMsg');
+    if (!found) {
+        if(!noResults) {
+            let msg = document.createElement('div');
+            msg.id = 'noResultsMsg';
+            msg.className = 'text-center my-5';
+            msg.innerHTML = `<i class="fas fa-pills fa-3x text-muted mb-3"></i><p class="text-muted">Maaf kijiye! Ye dawai filhal maujood nahi.</p>`;
+            document.querySelector('.row.g-4').parentNode.appendChild(msg);
+        }
+    } else if (noResults) {
+        noResults.remove();
+    }
+}
+
+
+
+
+
+let cart = [];
+
+// 1. Add to Cart (Ab ye check karega ke item pehle se hai ya nahi)
+function addToCart(name, price) {
+    let existingItem = cart.find(item => item.name === name);
+    
+    if (existingItem) {
+        existingItem.quantity += 1; // Agar pehle se hai toh sirf quantity barhao
+    } else {
+        cart.push({ name: name, price: price, quantity: 1 }); // Naya item add karo
+    }
+    
+    updateCartUI();
+    
+    // Drawer kholna
+    var myOffcanvas = document.getElementById('cartDrawer');
+    var bsOffcanvas = bootstrap.Offcanvas.getInstance(myOffcanvas) || new bootstrap.Offcanvas(myOffcanvas);
+    bsOffcanvas.show();
+}
+
+// 2. Quantity Change (+ ya - karne ke liye)
+function changeQuantity(index, action) {
+    if (action === 'plus') {
+        cart[index].quantity += 1;
+    } else if (action === 'minus') {
+        cart[index].quantity -= 1;
+        // Agar quantity 0 ho jaye toh item nikal do
+        if (cart[index].quantity < 1) {
+            removeItem(index);
+            return;
+        }
+    }
+    updateCartUI();
+}
+
+// 3. Item Delete
+function removeItem(index) {
+    cart.splice(index, 1);
+    updateCartUI();
+}
+
+// 4. Clear Full Cart
+function clearFullCart() {
+    if(confirm("Kya aap poora cart khali karna chahte hain?")) {
+        cart = [];
+        updateCartUI();
+    }
+}
+
+
+
+
+
+// function updateCartUI() {
+//     let list = document.getElementById('cartItemsList');
+//     let totalDisplay = document.getElementById('totalAmount');
+//     let badge = document.getElementById('cartCount');
+//     let footer = document.getElementById('cartFooter');
+//     let total = 0;
+
+//     if (cart.length === 0) {
+//         list.innerHTML = `<div class="text-center mt-5"><p class="text-muted">Aapka cart khali hai!</p></div>`;
+//         footer.style.display = "none";
+//         badge.innerText = "0";
+//     } else {
+//         list.innerHTML = "";
+//         footer.style.display = "block";
+        
+//        cart.forEach((item, index) => {
+//     total += (item.price * item.quantity);
+//     list.innerHTML += `
+//         <div class="d-flex justify-content-between align-items-center mb-3 p-3 bg-white rounded shadow-sm border-start border-4" style="border-color: #008080 !important;">
+//             <div style="flex: 1;">
+//                 <h6 class="mb-0 fw-bold" style="font-size: 0.9rem;">${item.name}</h6>
+//                 <small class="text-muted">Rs. ${item.price} x ${item.quantity}</small>
+//             </div>
+            
+//             <div class="d-flex align-items-center">
+//                 <button class="btn btn-sm btn-light border px-2" onclick="changeQuantity(${index}, 'minus')">-</button>
+//                 <span class="mx-2 fw-bold small">${item.quantity}</span>
+//                 <button class="btn btn-sm btn-light border px-2" onclick="changeQuantity(${index}, 'plus')">+</button>
+                
+//                 <button class="btn btn-sm text-danger ms-2" onclick="removeItem(${index})" title="Delete Item">
+//                     <i class="fas fa-trash-alt"></i>
+//                 </button>
+//             </div>
+//         </div>`;
+// });
+
+//         // --- YEH HAI OUTPUT WALA HISSA ---
+//       // Check karein k konsa radio button select hai
+// let deliveryCharges = document.querySelector('input[name="deliverySpeed"]:checked');
+// let delivery = deliveryCharges ? parseInt(deliveryCharges.value) : 100;
+
+// let finalTotal = total + delivery;
+
+// // Baki ka totalDisplay.innerHTML wala code wahi purana rehne den
+// totalDisplay.innerHTML = `
+//     <div class="small d-flex justify-content-between">
+//         <span>Items Total:</span> <span>Rs. ${total}</span>
+//     </div>
+//     <div class="small d-flex justify-content-between">
+//         <span>Delivery:</span> <span>Rs. ${delivery}</span>
+//     </div>
+//     <hr class="my-1">
+//     <div class="d-flex justify-content-between fw-bold text-teal">
+//         <span>Grand Total:</span> <span>Rs. ${finalTotal}</span>
+//     </div>
+// `;
+//     }
+//     badge.innerText = cart.reduce((acc, item) => acc + item.quantity, 0);
+// }
+
+
+
+
+function updateCartUI() {
+    let list = document.getElementById('cartItemsList');
+    let totalDisplay = document.getElementById('totalAmount');
+    let badge = document.getElementById('cartCount');
+    let footer = document.getElementById('cartFooter');
+    let total = 0;
+
+    if (cart.length === 0) {
+        list.innerHTML = `<div class="text-center mt-5"><p class="text-muted">Cart khali hai!</p></div>`;
+        footer.style.display = "none";
+        badge.innerText = "0";
+    } else {
+        list.innerHTML = "";
+        footer.style.display = "block";
+        
+        cart.forEach((item, index) => {
+            total += (item.price * item.quantity);
+            list.innerHTML += `
+                <div class="d-flex justify-content-between align-items-center mb-2 p-2 bg-white rounded border">
+                    <div><h6 class="mb-0 small fw-bold">${item.name}</h6><small>Rs. ${item.price}</small></div>
+                    <div class="d-flex align-items-center">
+                        <button class="btn btn-sm btn-light border px-2" onclick="changeQuantity(${index}, 'minus')">-</button>
+                        <span class="mx-2 small fw-bold">${item.quantity}</span>
+                        <button class="btn btn-sm btn-light border px-2" onclick="changeQuantity(${index}, 'plus')">+</button>
+                        <button class="btn btn-sm text-danger ms-2" onclick="removeItem(${index})"><i class="fas fa-trash"></i></button>
+                    </div>
+                </div>`;
+        });
+
+        // Delivery calculation logic
+        let deliveryCharges = document.querySelector('input[name="deliverySpeed"]:checked');
+        let delivery = deliveryCharges ? parseInt(deliveryCharges.value) : 100;
+        let finalTotal = total + delivery;
+
+        totalDisplay.innerHTML = `
+            <div class="d-flex justify-content-between small"><span>Subtotal:</span><span>Rs. ${total}</span></div>
+            <div class="d-flex justify-content-between small text-muted"><span>Delivery Fee:</span><span>Rs. ${delivery}</span></div>
+            <hr class="my-2">
+            <div class="d-flex justify-content-between fw-bold text-teal" style="font-size: 1.1rem;">
+                <span>Total Bill:</span><span>Rs. ${finalTotal}</span>
+            </div>
+        `;
+    }
+    badge.innerText = cart.reduce((acc, item) => acc + item.quantity, 0);
+}
+
+// 6. WhatsApp Order (With Quantities)
+function sendOrderWhatsApp() {
+    if (cart.length === 0) return alert("Pehle cart mein dawai add karein!");
+
+    // Payment method select karne wala logic
+    let payment = document.getElementById('paymentMethod').value;
+    let itemsText = cart.map((item, i) => `${i+1}. ${item.name} [Qty: ${item.quantity}] - Rs.${item.price * item.quantity}`).join('%0A');
+    let total = document.getElementById('totalAmount').innerText;
+    
+    let msg = `*RANA SALEEM MEDICAL STORE ORDER*%0A%0A` +
+              `*Items List:*%0A${itemsText}%0A%0A` +
+              `*Total Bill: ${total}*%0A` +
+              `*Payment Method: ${payment}*%0A%0A` +
+              `_Please confirm my order!_`;
+    
+    window.open(`https://wa.me/923199618031?text=${msg}`);
+}
+
+
+
+
+
+</script>
+</html>
